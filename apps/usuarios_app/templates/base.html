@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/d346760371.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <title>Inicio -Dashboard</title>
+</head>
+<body class="d-flex flex-column h-100 w-100">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark text-light">
+        <a class="navbar-brand" href="#">Dashboards</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-link active" href="{% url 'inicio' %}">Inicio <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="{% url 'registro' %}">Regístrate</a>
+            <a class="nav-link" href="{% url 'ingresa' %}">Ingresa</a>
+          </div>
+        </div>
+      </nav>
+    {% block content %}
+
+    {% endblock %}  
+    <div class="footer mt-auto py-3">
+        <footer class="fixed-bottom bg-dark text-light text-center py-2">
+            <p>&#169 pag0dy - 2021</p>
+        </footer>  
+    </div>
+</body>
+</html>

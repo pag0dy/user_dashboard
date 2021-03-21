@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+<header>
+    <div class="jumbotron">
+        <h1 class="display-3">Bienvenido al Dashboard!</h1>
+        <p class="lead">Este es un ejemplo de aplicación que gestiona usuarios, perfiles y muros de comentarios.</p>
+        <hr class="my-3">
+        <p>Utiliza componentes de bootstrap entre otros elementos.</p>
+        <a href="{% url 'registro' %}" class="btn btn-info">Empecemos!</a>
+    </div>
+</header>
+<main>
+    <div class="row p-3">
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Gestiona usuarios</h5>
+                    <p class="card-text">Con esta aplicación podras crear, editar y eliminar usuarios.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Ingresa mensajes</h5>
+                    <p class="card-text">Los usuarios de esta aplicación podrán dejar mensajes a otros usuarios.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Editar información</h5>
+                    <p class="card-text">El usuario administrador podrá editar la información de otros usuarios.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+{% endblock %}
