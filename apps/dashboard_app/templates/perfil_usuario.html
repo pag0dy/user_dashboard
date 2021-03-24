@@ -1,0 +1,54 @@
+{% extends 'base_dash.html' %}
+{% block content %}
+<main>
+    <div>
+        <h3 class="display-4">Edita tu perfil</h3>
+        <hr class="my-2">
+    </div>
+    <div class="col w-50">
+        <h3 class="display-4">Edita tu información</h3>
+        <form action="editar_usuario" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="correo_usuario">Correo:</label>
+                <input class="form-control" type="email" name="correo_usuario" id="correo_usuario" value="{{ este_usuario.correo }}">
+            </div>
+            <div class="form-group">
+                <label for="nombre_usuario">Nombre:</label>
+                <input class="form-control" type="text" name="nombre_usuario" id="nombre_usuario" value="{{ este_usuario.nombre }}">
+            </div>
+            <div class="form-group">
+                <label for="apellido_usuario">Apellido:</label>
+                <input type="text" name="apellido_usuario" id="apellido_usuario" class="form-control" value="{{ este_usuario.apellido }}">
+            </div>
+            <button class="btn btn-info" type="submit">Guardar</button>
+        </form>
+    </div>
+    <div class="col w-50">
+        <h3 class="display-4">Cambia tu contraseña</h3>
+        <form action="editar_clave" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="clave_usuario">Nueva contraseña:</label>
+                <input type="password" name="clave_usuario" id="clave_usuario" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="clave_rep_usuario">Confirma tu nueva contraseña:</label>
+                <input type="password" name="clave_rep_usuario" id="clave_rep_usuario" class="form-control">
+            </div>
+            <button class="btn btn-info" type="submit">Actualizar clave</button>
+        </form>
+    </div>
+    <div class="col w-75">
+        <h3 class="display-4">Edita tu descripción</h3>
+        <form action="editar_desc" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="desc_usuario">Descripción:</label>
+                <textarea name="desc_usuario" id="desc_usuario" rows="4" class="form-control">{{ este_usuario.desc }}</textarea>
+            </div>
+            <button class="btn btn-info" type="submit">Guardar</button>
+        </form>
+    </div>
+</main>
+{% endblock %}

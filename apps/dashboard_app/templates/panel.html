@@ -1,0 +1,30 @@
+{% extends 'base_dash.html' %}
+{% block content %}
+<main>
+    <div>
+        <h3 class="display-4">Panel de usuarios</h3>
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Nombre Completo</th>
+                    <th scope="col">Correo</th>
+                    <th scope="col">Fecha de registro</th>
+                    <th scope="col">Administrador</th>                   
+                </tr>
+            </thead>
+            <tbody>
+                {% for usuario in usuarios %}
+                <tr>
+                    <th scope="row">{{ usuario.id }}</th>
+                    <td><a href="{{ usuario.id }}">{{ usuario.nombre }} {{ usuario.apellido }}</a></td>
+                    <td>{{ usuario.correo }}</td>
+                    <td>{{ usuario.created_at }}</td>
+                    <td>{{ usuario.admin }}</td>
+                </tr>                    
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</main>
+{% endblock %}

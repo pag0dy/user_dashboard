@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<main>
+    <div class="col w-50">
+        <h3 class="display-4">Agregar un nuevo usuario</h3>
+        <a class="btn  btn-info" href="#">Volver al panel de usuarios</a>
+        <form action="registrar" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-info my-2" type="submit">Ingresar</button>
+        </form>
+    </div>
+</main>
+{% endblock %}

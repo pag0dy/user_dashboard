@@ -2,8 +2,17 @@
 {% block content %}
 <main>
     <div class="col w-50">
+        <div>            
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tag }}"{% endif %}>{{ message }}</li>                         
+                    {% endfor %}
+                </ul>
+            {% endif %}                   
+        </div>
         <h3 class="display-4">Ingresa aquí</h3>
-        <form action="iniciar_sesion" method="post">
+        <form action="ingresa" method="post">
             {% csrf_token %}
             <div class="form-group">
                 <label for="correo">Correo:</label>

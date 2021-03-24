@@ -18,12 +18,15 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
-            <a class="nav-link" href="{% url 'registro' %}">Crea una cuenta</a>
-            <a class="nav-link" href="{% url 'ingresa' %}">Ingresa</a>
+            <a class="nav-link" href="{% url 'panel' %}">Panel</a>
+            <a class="nav-link" href="dash/{{este_usuario.id}}">Mi muro</a>
+            <a class="nav-link" href="{% url 'perfil_usuario' %}">Mi Perfil</a>
+            <a class="nav-link" href="{% url 'salir' %}">Cerrar sesión</a>
           </div>
         </div>
       </nav>
     {% block content %}
+
     {% endblock %}  
     <div class="footer mt-auto py-3">
         <footer class="fixed-bottom bg-dark text-light text-center py-2">

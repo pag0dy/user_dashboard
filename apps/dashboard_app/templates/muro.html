@@ -1,0 +1,30 @@
+{% extends 'base_dash.html' %}
+{% block content %}
+<main>
+    <div>
+        <h3 class="display-4">{{ este_usuario.nombre }} {{ este_usuario.apellido}}</h3>
+        <p class="lead">Fecha de registro: {{ este_usuario.created_at }}</p>
+        <p class="lead">Id de usuario: {{ este_usuario.id }}</p>
+        <p class="lead">Correo: {{ este_usuario.correo }}</p>
+        <p class="lead">Descripción: {{ este_usuario.desc }}</p>
+    </div>
+    <div>
+        <h3 class="display-4">Deja un mensaje para {{ este_usuario.nombre }}</h3>
+        <form action="mensaje" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <textarea name="mensaje" id="mensaje" rows="3" class="form-control"></textarea>
+                <input type="hidden" name="id_usuario_muro" value="{{este_usuario.id}}">
+                <button class="btn btn-info" type="submit">Enviar</button>
+            </div>
+        </form>
+    </div>
+    <div>
+        {% for mensaje in mensajes %}
+        <p class="lead">{{ mensaje.autor }} escribió:</p>
+        <p>{{ mensaje.contenido }}</p>
+            
+        {% endfor %}
+    </div>
+</main>
+{% endblock %}
