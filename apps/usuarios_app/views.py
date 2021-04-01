@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
+from ..dashboard_app import views
 from .models import Usuario
 import bcrypt
 
@@ -26,9 +27,9 @@ def ingresa(request):
             if usuario:
 
                 inicio_usuario = usuario[0]
-                request.session['usuario'] = inicio_usuario.id
+                request.session['este_usuario'] = inicio_usuario.id
 
-                return redirect('dash/' + str(inicio_usuario.id))
+                return redirect('dash/muro/' + str(request.session['este_usuario']) )
 
 
 def registro(request):
@@ -53,14 +54,14 @@ def registro(request):
             else:
                 admin = False
             usuario = Usuario.objects.create(nombre=request.POST['nombre'], apellido=request.POST['apellido'], correo=request.POST['correo'], clave=pw_hash, admin=admin)
-            request.session['usuario'] = usuario.id
+            request.session['este_usuario'] = usuario.id
             print(usuario.id)
 
-            return redirect('dash/' + str(usuario.id))
+            return redirect('dash/muro/' + str(usuario.id))
 
 def salir(request):
     try:
-        del request.session['usuario']
+        del request.session['este_usuario']
         return redirect('inicio')
     except:
         return HttpResponse('no has iniciado una sesión')

@@ -1,18 +1,20 @@
-{% extends 'base.html' %}
+{% extends 'base_dash.html' %}
 {% block content %}
-<main class="container p-3">
-    <div class="col align-self-center">
-        <div>            
-            {% if messages %}
-                <ul class="messages">
-                    {% for message in messages %}
-                    <li {% if message.tags %} class="{{ message.tag }}"{% endif %}>{{ message }}</li>                         
-                    {% endfor %}
-                </ul>
-            {% endif %}                   
+<main class="container">
+    <div>            
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li {% if message.tags %} class="{{ message.tag }}"{% endif %}>{{ message }}</li>                         
+                {% endfor %}
+            </ul>
+        {% endif %}                   
+    </div>
+    <div class="col position-static">
+        <div>
+            <h3 class="d-block display-4">Agregar un nuevo usuario</h3>
         </div>
-        <h3 class="display-4">Crea una cuenta aquí</h3>
-        <form action="registro" method="post">
+        <form action="agregar" method="post">
             {% csrf_token %}
             <label for="nombre">Nombre:</label>
             <input type="text" name="nombre" id="nombre" class="form-control">
@@ -24,7 +26,7 @@
             <input type="password" name="clave" id="clave" class="form-control">
             <label for="clave_rep">Confirma tu password:</label>
             <input type="password" name="clave_rep" id="clave_rep" class="form-control">
-            <button class="btn btn-info my-2" type="submit">Ingresar</button>
+            <button class="btn btn-warning my-2" type="submit">Agregar</button>
         </form>
     </div>
 </main>

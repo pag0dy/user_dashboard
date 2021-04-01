@@ -1,26 +1,80 @@
 {% extends 'base_dash.html' %}
 {% block content %}
-<main>
+<main class="container">   
+    <div>            
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li {% if message.tags %} class="{{ message.tag }}"{% endif %}>{{ message }}</li>                         
+                {% endfor %}
+            </ul>
+        {% endif %}                   
+    </div>
+    <div class="d-flex justify-content-between">
+        <h3 class="display-4">Panel de usuarios</h3>        
+        {% if este_usuario.admin == True %}
+        <a class="btn btn-warning my-4" href="{% url 'agregar' %}">Agregar usuario</a>            
+        {% endif %}
+    </div>
     <div>
-        <h3 class="display-4">Panel de usuarios</h3>
-        <table class="table table-striped">
+        <table class="table table-striped bg-semi-transparent">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">Id</th>
                     <th scope="col">Nombre Completo</th>
                     <th scope="col">Correo</th>
                     <th scope="col">Fecha de registro</th>
-                    <th scope="col">Administrador</th>                   
+                    <th scope="col">Administrador</th>    
+                    {% if este_usuario.admin == True %}
+                        <th scope="col" colspan="2" class="text-center">Acciones</th>
+                    {% endif %}               
                 </tr>
             </thead>
-            <tbody>
+            <tbody class='text-light'>
                 {% for usuario in usuarios %}
                 <tr>
                     <th scope="row">{{ usuario.id }}</th>
-                    <td><a href="{{ usuario.id }}">{{ usuario.nombre }} {{ usuario.apellido }}</a></td>
+                    <form action="muro/{{ usuario.id }}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="id_muro_usuario" value="{{ usuario.id }}">
+                        <td><button class="btn-link bg-transparent text-warning" type="submit">{{ usuario.nombre }} {{ usuario.apellido }}</button></td>
+                    </form>
                     <td>{{ usuario.correo }}</td>
-                    <td>{{ usuario.created_at }}</td>
+                    <td>{{ usuario.created_at|date:"SHORT_DATETIME_FORMAT"}}</td>
                     <td>{{ usuario.admin }}</td>
+                    {% if este_usuario.admin == True %}
+                    <form action="{% url 'perfil_usuario' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="id_otro_usuario" value="{{ usuario.id }}">
+                        <td><button class="btn-link bg-transparent text-warning" type="submit">Editar</button></td>
+                    </form>
+                    <form action="{% url 'eliminar_usuario' %}" id="eliminar" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="id_otro_usuario" value="{{ usuario.id }}">
+                        <td><button type="button" class="btn-link text-warning bg-transparent" data-toggle="modal" data-target="#alertModal">
+                            Eliminar
+                        </button></td>
+                        <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title text-dark" id="alertModalLabel">Eliminar usuario</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                </div>
+                                <div class="modal-body text-dark">
+                                    <h5>¿Estás seguro de que quieres eliminar al usuario?</h5>
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                <button type="button" class="btn btn-danger" id="submit">Sí, eliminar</button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        </form>            
+                    {% endif %}                        
                 </tr>                    
                 {% endfor %}
             </tbody>

@@ -1,29 +1,48 @@
 {% extends 'base_dash.html' %}
 {% block content %}
-<main>
-    <div>
-        <h3 class="display-4">{{ este_usuario.nombre }} {{ este_usuario.apellido}}</h3>
-        <p class="lead">Fecha de registro: {{ este_usuario.created_at }}</p>
-        <p class="lead">Id de usuario: {{ este_usuario.id }}</p>
-        <p class="lead">Correo: {{ este_usuario.correo }}</p>
-        <p class="lead">Descripción: {{ este_usuario.desc }}</p>
+<main class="container p-3">
+    <div class="datos col-auto">
+        <h3 class="display-4">Muro de {{ muro_usuario.nombre }} {{ muro_usuario.apellido}}</h3>
+        <div class="detalle">
+            <p class="lead"><span class="font-weight-bold">Fecha de registro: </span>{{ muro_usuario.created_at }}</p>
+            <p class="lead"><span class="font-weight-bold">Id de usuario: </span>{{ muro_usuario.id }}</p>
+            <p class="lead"><span class="font-weight-bold">Correo: </span>{{ muro_usuario.correo }}</p>
+            <p class="lead"><span class="font-weight-bold">Descripción: </span>{{ muro_usuario.desc }}</p>
+        </div>
     </div>
     <div>
-        <h3 class="display-4">Deja un mensaje para {{ este_usuario.nombre }}</h3>
-        <form action="mensaje" method="post">
+        <h3>Deja un mensaje para {{ muro_usuario.nombre }}</h3>
+        <form class="mensaje" action="{% url 'mensaje'%}" method="post">
             {% csrf_token %}
             <div class="form-group">
                 <textarea name="mensaje" id="mensaje" rows="3" class="form-control"></textarea>
-                <input type="hidden" name="id_usuario_muro" value="{{este_usuario.id}}">
-                <button class="btn btn-info" type="submit">Enviar</button>
+                <input type="hidden" name="id_usuario_muro" value="{{muro_usuario.id}}">
+                <button class="btn btn-warning my-3" type="submit">Enviar</button>
             </div>
         </form>
     </div>
-    <div>
+    <div class="col">
         {% for mensaje in mensajes %}
-        <p class="lead">{{ mensaje.autor }} escribió:</p>
-        <p>{{ mensaje.contenido }}</p>
-            
+        <ul class="list-group-flush w-50">
+            <p class="d-inline">{{ mensaje.creado_por.nombre }} escribió:</p>
+            <li class="list-group-item bg-semi-transparent">{{ mensaje.contenido }}</li>
+            <p class="d-inline">{{ mensaje.created_at|date:"SHORT_DATETIME_FORMAT" }}</p>
+            <ul class="list-group-flush my-2">
+            {% for comentario in mensaje.comentarios.all %}
+                <p class="d-inline">{{ comentario.creado_por.nombre }}</p>
+                <li class="list-group-item bg-semi-transparent">{{ comentario.contenido }}</li>      
+            {% endfor %}    
+            </ul>
+        </ul>
+        <form class="mensaje" action="{% url 'comentario' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <textarea name="comentario" id="comentario" rows="3" class="form-control"></textarea>
+                <input type="hidden" name="id_usuario_muro" value="{{muro_usuario.id}}">
+                <input type="hidden" name="id_mensaje" value="{{ mensaje.id }}">
+                <button class="btn btn-warning my-3" type="submit">Comentar</button>
+            </div>
+        </form>  
         {% endfor %}
     </div>
 </main>

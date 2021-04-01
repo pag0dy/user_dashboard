@@ -39,29 +39,8 @@ form {
 
 h3 {
     text-align: center;
-    padding-bottom: 10px;
 }
 
 .datos {
-    color: black;
-    border: 3px solid  rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.2);
-}
-
-.detalle {
-    padding-left: 25%;
-}
-
-form.mensaje {
-    width:50%;
-}
-
-.bg-semi-transparent {
-    background-color: rgba(255, 255, 255, 0.1); 
-    border-radius: 10px;
-}
-
-form.perfil {
-    width:75%;
+    text-align: center;
 }

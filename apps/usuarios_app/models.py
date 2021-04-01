@@ -34,6 +34,27 @@ class UserManager(models.Manager):
 
         return errors
 
+    def validar_edicion_info(self, postData):
+        solo_letras(postData['nombre_usuario'], 'nombre')
+        mayor_que(postData['nombre_usuario'], 2, 'nombre')
+        existe(postData['nombre_usuario'], 'nombre')
+        solo_letras(postData['apellido_usuario'], 'apellido')
+        mayor_que(postData['apellido_usuario'], 2, 'apellido')
+        existe(postData['apellido_usuario'], 'apellido')
+        solo_reg(EMAIL_REGEX, postData['correo_usuario'], 'correo')
+        existe(postData['correo_usuario'], 'correo')
+
+        return errors
+
+    def validar_cambio_clave(self, postData):
+        mayor_que(postData['clave_usuario'], 8, 'clave')
+        iguales(postData['clave_usuario'], postData['clave_rep_usuario'], 'clave')
+        existe(postData['clave_usuario'], 'clave')
+
+        return errors
+
+
+
 class Usuario(models.Model):
     nombre = models.CharField(max_length=100)
     apellido = models.CharField(max_length=100)
